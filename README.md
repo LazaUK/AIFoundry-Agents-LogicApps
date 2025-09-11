@@ -145,5 +145,5 @@ Agent is ready! You can now interact with it.
 
 ## Part 3: Configuring Logic App as a Tool using OpenAPI Schema
 
-> [!ATTENTION]
+> [!WARNING]
 > *Coming soon! This section will describe how to configure an agent to use a Logic App via an OpenAPI schema, which offers a more declarative approach to defining tool capabilities.*
