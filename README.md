@@ -46,7 +46,7 @@ This section details how to wrap a Logic App's functionality within a Python fun
 ### 2.1 The `AzureLogicAppTool` Class
 A dedicated class, `AzureLogicAppTool`, is used to manage the Logic App. It performs two key tasks:
 * `register_logic_app`: This method retrieves the unique callback URL for the Logic App's HTTP-Trigger. It uses the `LogicManagementClient` to securely obtain this URL, which is required to invoke the Logic App.
-* `invoke_logic_app`: This method sends a `POST` request to the registered callback URL with a JSON payload, effectively triggering the Logic App workflow. It handles the API response, including success and error states.
+* `invoke_logic_app`: This method sends a `POST` request to the registered callback URL with a JSON payload, effectively triggering the Logic App workflow.
 
 ``` Python
 class AzureLogicAppTool:
@@ -76,11 +76,53 @@ class AzureLogicAppTool:
 ```
 
 ### 2.2 Creating a Python Wrapper Function
-A helper function, `create_weather_forecast_function`, acts as a bridge between the AI agent and the `AzureLogicAppTool`. This function defines a new Python function (`get_weather_forecast`) that the agent can call. This wrapper:
-* Accepts a `location` parameter from the agent.
-* Constructs the necessary JSON `payload`.
-* Calls the `invoke_logic_app` method from the `AzureLogicAppTool` class.
-* Formats the result into a standardized JSON response that the agent can easily parse.
+A helper function, `create_weather_forecast_function`, acts as a bridge between the AI agent and the `AzureLogicAppTool`:
+* Accepting a `location` parameter from the agent.
+* Constructing the necessary JSON `payload`.
+* Calling the `invoke_logic_app` method from the `AzureLogicAppTool` class.
+* Formating the result into a standardized JSON response that the agent can easily parse.
+
+``` Python
+def create_weather_forecast_function(logic_app_tool: AzureLogicAppTool, logic_app_name: str) -> Callable[[str], str]:
+    """
+    Creates a weather forecast function that can be used by the AI agent.
+    """
+    
+    def get_weather_forecast(location: str) -> str:
+        """
+        Gets weather forecast for a specific location using the Logic App.
+        
+        :param location: The location to get weather forecast for (e.g., "London", "New York", "Tokyo")
+        :return: A JSON string containing the weather forecast information
+        """
+        payload = {"Location": location}
+        
+        try:
+            result = logic_app_tool.invoke_logic_app(logic_app_name, payload)
+            
+            if result.get("result") == "success":
+                weather_info = result.get("weather_data", result.get("data", "Weather data received"))
+                return json.dumps({
+                    "status": "success",
+                    "location": location,
+                    "forecast": weather_info
+                })
+            else:
+                return json.dumps({
+                    "status": "error",
+                    "location": location,
+                    "error": result.get("error", "Unknown error occurred")
+                })
+                
+        except Exception as e:
+            return json.dumps({
+                "status": "error",
+                "location": location,
+                "error": str(e)
+            })
+    
+    return get_weather_forecast
+```
 
 ### 2.3 Agent Configuration
 With the Python wrapper function defined, you can now configure the AI agent:
@@ -88,15 +130,16 @@ With the Python wrapper function defined, you can now configure the AI agent:
 2.  **Enable Function Calling**: The `agents_client.enable_auto_function_calls()` method is used to instruct the agent's model to automatically call the defined tools when appropriate.
 3.  **Create the Agent**: An agent is created with a clear instruction set that guides it to use the `get_weather_forecast` tool when asked about the weather.
 
+The output of AI agent's setup may look like this
 
-
-### 2.4 Agent Interaction and Testing
-After setup, you can test the agent by asking it questions like "What's the weather like in Paris today?". The agent's response demonstrates its ability to:
-* Identify the user's intent to get a weather forecast.
-* Determine the correct tool to use (`get_weather_forecast`).
-* Extract the required parameter (`"Paris"`) from the user's query.
-* Invoke the underlying Logic App via the function call.
-* Present the returned weather data to the user in a friendly, conversational format.
+``` JSON
+Setting up agent tools...
+Creating weather agent...
+Created weather agent with ID: asst_P24uYTY3zZhH2VFnP6on62lt
+Creating conversation thread...
+Created thread with ID: thread_au3fmRys3MadIZTnCppkDHmf
+Agent is ready! You can now interact with it.
+```
 
 ***
 
