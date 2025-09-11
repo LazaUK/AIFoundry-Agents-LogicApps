@@ -3,7 +3,7 @@
 This repository demonstrates how to integrate **Azure Logic Apps** as custom tools for an Azure AI Foundry agent.
 
 > [!NOTE]
-> For more in-depth information about the Agent Service, refer to the official [Azure AI Foundry documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/logic-apps?pivots=portal).
+> For more in-depth information about the Azure AI Agent Service, refer to the official [Azure AI Foundry documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/overview).
 
 ***
 
