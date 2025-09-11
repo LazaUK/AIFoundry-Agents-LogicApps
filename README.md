@@ -75,7 +75,7 @@ class AzureLogicAppTool:
         <...>
 ```
 
-### 2.2 Creating a Python Wrapper Function
+### 2.2 Python Wrapper Function
 A helper function, `create_weather_forecast_function`, acts as a bridge between the AI agent and the `AzureLogicAppTool`:
 * Accepting a `location` parameter from the agent.
 * Constructing the necessary JSON `payload`.
