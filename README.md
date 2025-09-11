@@ -130,7 +130,7 @@ With the Python wrapper function defined, you can now configure the AI agent:
 2.  **Enable Function Calling**: The `agents_client.enable_auto_function_calls()` method is used to instruct the agent's model to automatically call the defined tools when appropriate.
 3.  **Create the Agent**: An agent is created with a clear instruction set that guides it to use the `get_weather_forecast` tool when asked about the weather.
 
-The output of AI agent's setup may look like this
+The output of AI agent's setup may look like this:
 
 ``` JSON
 Setting up agent tools...
