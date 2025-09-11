@@ -35,7 +35,7 @@ Configure the following environment variables with your Azure credentials and pr
 Install the necessary Python packages using pip:
 
 ``` bash
-pip install azure-identity azure-ai-projects azure-ai-agents azure-mgmt-logic requests
+pip install -r requirements.txt
 ```
 
 ***
