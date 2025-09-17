@@ -278,3 +278,5 @@ run = agents_client.runs.create_and_process(
 
 > [!NOTE]
 > The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance while enabling full functionality of Logic Apps integration.
+
+![Logic Apps sample](images/LogicApps_VisualDesign.png)
