@@ -144,6 +144,138 @@ Agent is ready! You can now interact with it.
 ***
 
 ## Part 3: Configuring Logic App as a Tool using OpenAPI Schema
+This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundry agents using **OpenAPI schema**.
 
-> [!WARNING]
-> *Coming soon! This section will describe how to configure an agent to use a Logic App via an OpenAPI schema, which offers a more declarative approach to defining tool capabilities.*
+### 3.1 The `LogicAppsIntegration` Class
+The `LogicAppsIntegration` class manages the integration between Logic Apps and the AI agent through OpenAPI spec. It handles:
+
+* **Callback URL Retrieval**: Securely obtains the Logic App's HTTP trigger callback URL using the Azure Logic Management Client
+* **OpenAPI Spec Generation**: Creates a minimal OpenAPI 3.0 specification that describes the Logic App endpoint
+* **Tool Creation**: Generates an `OpenApiTool` that can be directly used by the AI agent
+
+``` Python
+class LogicAppsIntegration:
+    """
+    This class uses Logic Apps callback URL as-is and creates OpenAPI tools.
+    """
+    
+    def __init__(self, subscription_id: str, resource_group: str, credential=None):
+        if credential is None:
+            credential = DefaultAzureCredential()
+        
+        self.subscription_id = subscription_id
+        self.resource_group = resource_group
+        self.credential = credential
+        self.logic_client = LogicManagementClient(credential, subscription_id)
+    
+    def get_callback_url(self, logic_app_name: str, trigger_name: str) -> str:
+        """Get the actual callback URL from Logic App."""
+        # Implementation retrieves secure callback URL
+        
+    def create_direct_openapi_spec(self, callback_url: str) -> Dict[str, Any]:
+        """Create a minimal OpenAPI 3.0 spec that uses the callback URL directly."""
+        # Implementation creates OpenAPI specification
+        
+    def create_openapi_tool(self, logic_app_name: str, trigger_name: str) -> OpenApiTool:
+        """Create OpenAPI tool using direct callback URL approach."""
+        # Implementation returns configured OpenApiTool
+```
+
+### 3.2 OpenAPI Specification Generation
+The class automatically generates a minimal OpenAPI 3.0 spec that includes:
+
+* **Server Configuration**: Uses the Logic App's callback URL as the base server URL
+* **Authentication**: Leverages `OpenApiAnonymousAuthDetails` as callback URL contains embedded signature parameters
+* **Request Schema**: Defines the expected JSON payload structure (e.g., location parameter for weather requests)
+* **Response Schema**: Describes the expected response format from the Logic App
+
+``` Python
+openapi_spec = {
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Logic App Weather API",
+        "version": "1.0.0",
+        "description": "Direct access to Logic App via callback URL"
+    },
+    "servers": [{"url": callback_url.split('?')[0]}],
+    "paths": {
+        "/": {
+            "post": {
+                "operationId": "get_weather",
+                "summary": "Get weather information",
+                "requestBody": {
+                    "required": True,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Location": {
+                                        "type": "string",
+                                        "description": "The location to get weather for"
+                                    }
+                                },
+                                "required": ["Location"]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### 3.3 Agent Setup with OpenAPI Tools
+The OpenAPI approach simplifies agent configuration by providing a standardised tool definition:
+
+``` Python
+# Initialize Logic App integration
+logic_integration = LogicAppsIntegration(
+    subscription_id=SUBSCRIPTION_ID,
+    resource_group=RESOURCE_GROUP
+)
+
+# Create OpenAPI tool
+openapi_tool, tool_name = logic_integration.create_openapi_tool(
+    logic_app_name=LOGIC_APP_NAME,
+    trigger_name=TRIGGER_NAME,
+    tool_name="get_weather",
+    tool_description="Get weather forecast for any location"
+)
+
+# Create AI Agent with OpenAPI tool
+agent = agents_client.create_agent(
+    model=MODEL_DEPLOYMENT,
+    name="weather-agent",
+    instructions="You are a helpful weather assistant. When asked about weather, use the get_weather tool with the location provided by the user.",
+    tools=openapi_tool.definitions,
+)
+```
+
+### 3.4 Usage Example
+Once configured, the agent can seamlessly use the Logic App tool:
+
+``` Python
+# Create a conversation thread
+thread = agents_client.threads.create()
+
+# Send a message requesting weather information
+message = agents_client.messages.create(
+    thread_id=thread.id,
+    role="user",
+    content="What's the weather in London?",
+)
+
+# Process the request (agent will automatically call the Logic App)
+run = agents_client.runs.create_and_process(
+    thread_id=thread.id,
+    agent_id=agent.id
+)
+
+# The agent will use the OpenAPI tool to call the Logic App
+# and provide a formatted response to the user
+```
+
+> [!NOTE]
+> The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance while enabling full functionality of Logic Apps integration.
