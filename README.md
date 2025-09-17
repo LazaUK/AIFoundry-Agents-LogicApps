@@ -281,6 +281,6 @@ run = agents_client.runs.create_and_process(
 > The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance while enabling full functionality of Logic Apps integration.
 
 ## Appendix: Sample Logic App
-To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts location parameters and returns weather information.
+To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts location parameter and returns weather information.
 
 ![Logic Apps sample](images/LogicApps_VisualDesign.png)
