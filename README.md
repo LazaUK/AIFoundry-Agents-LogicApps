@@ -11,6 +11,7 @@ This repository demonstrates how to integrate **Azure Logic Apps** as custom too
 - [Part 1: Configuring the Environment](#part-1-configuring-the-environment)
 - [Part 2: Configuring Logic App as a Tool using Function Calling](#part-2-configuring-logic-app-as-a-tool-using-function-calling)
 - [Part 3: Configuring Logic App as a Tool using OpenAPI Schema](#part-3-configuring-logic-app-as-a-tool-using-openapi-schema)
+- [Appendix: Sample Logic App](#appendix-sample-logic-app)
 
 ## Part 1: Configuring the Environment
 To run the provided Jupyter notebooks, you'll need to set up your Azure AI Foundry environment and install the required Python packages.
@@ -278,5 +279,8 @@ run = agents_client.runs.create_and_process(
 
 > [!NOTE]
 > The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance while enabling full functionality of Logic Apps integration.
+
+## Appendix: Sample Logic App
+To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts location parameters and returns weather information.
 
 ![Logic Apps sample](images/LogicApps_VisualDesign.png)
