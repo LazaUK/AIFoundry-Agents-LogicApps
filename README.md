@@ -272,9 +272,18 @@ run = agents_client.runs.create_and_process(
     thread_id=thread.id,
     agent_id=agent.id
 )
+```
 
-# The agent will use the OpenAPI tool to call the Logic App
-# and provide a formatted response to the user
+The agent will use the OpenAPI tool to call the Logic App and provide a formatted response to the user, similar to this:
+
+``` JSON
+Displaying conversation results...
+Found 2 messages
+--------------------------------------------------
+User: What's the weather in London?
+--------------------------------------------------
+Assistant: The weather in London is currently cloudy. During the day, the high temperature will be 19°C with wind speeds around 22 km/h coming from the southwest (217°). At night, it will remain cloudy with a low temperature of 17°C and winds around 20 km/h from the south-southwest (202°). The skies are overcast, and there is a chance of light rain. Ultraviolet (UV) levels are low.
+--------------------------------------------------
 ```
 
 > [!NOTE]
