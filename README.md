@@ -149,9 +149,9 @@ This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundr
 ### 3.1 The `LogicAppsIntegration` Class
 The `LogicAppsIntegration` class manages the integration between Logic Apps and the AI agent through OpenAPI spec. It handles:
 
-* **Callback URL Retrieval**: Securely obtains the Logic App's HTTP trigger callback URL using the Azure Logic Management Client
-* **OpenAPI Spec Generation**: Creates a minimal OpenAPI 3.0 specification that describes the Logic App endpoint
-* **Tool Creation**: Generates an `OpenApiTool` that can be directly used by the AI agent
+* Callback URL Retrieval
+* OpenAPI Spec Generation
+* Tool Creation
 
 ``` Python
 class LogicAppsIntegration:
@@ -184,10 +184,9 @@ class LogicAppsIntegration:
 ### 3.2 OpenAPI Specification Generation
 The class automatically generates a minimal OpenAPI 3.0 spec that includes:
 
-* **Server Configuration**: Uses the Logic App's callback URL as the base server URL
-* **Authentication**: Leverages `OpenApiAnonymousAuthDetails` as callback URL contains embedded signature parameters
-* **Request Schema**: Defines the expected JSON payload structure (e.g., location parameter for weather requests)
-* **Response Schema**: Describes the expected response format from the Logic App
+* Server Configuration
+* Authentication
+* JSON payload structure
 
 ``` Python
 openapi_spec = {
