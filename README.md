@@ -31,6 +31,8 @@ Configure the following environment variables with your Azure credentials and pr
 | `AZURE_FOUNDRY_GPT_MODEL`        | The name of your model deployment.                        |
 | `AZURE_SUBSCRIPTION_ID`          | Your Azure subscription ID.                               |
 | `RESOURCE_GROUP_NAME`            | The name of the resource group containing your Logic App. |
+| `LOGIC_APP_NAME`                 | The name of the Azure Logic App resource                  |
+| `TRIGGER_NAME`                   | The name of the Logic App's HTTP trigger node             |
 
 ### 1.4 Required Libraries
 Install the necessary Python packages using pip:
