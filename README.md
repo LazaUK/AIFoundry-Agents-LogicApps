@@ -11,6 +11,7 @@ This repository demonstrates how to integrate **Azure Logic Apps** as custom too
 - [Part 1: Configuring the Environment](#part-1-configuring-the-environment)
 - [Part 2: Configuring Logic App as a Tool using Function Calling](#part-2-configuring-logic-app-as-a-tool-using-function-calling)
 - [Part 3: Configuring Logic App as a Tool using OpenAPI Schema](#part-3-configuring-logic-app-as-a-tool-using-openapi-schema)
+- [Part 4: Configuring Logic App as a Tool using OpenAPI Schema with Managed Identity auth]()
 - [Appendix: Sample Logic App](#appendix-sample-logic-app)
 
 ## Part 1: Configuring the Environment
@@ -290,6 +291,9 @@ Assistant: The weather in London is currently cloudy. During the day, the high t
 
 > [!NOTE]
 > The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance while enabling full functionality of Logic Apps integration.
+
+## Part 4: Configuring Logic App as a Tool using OpenAPI Schema with Managed Identity auth
+<TBU>
 
 ## Appendix: Sample Logic App
 To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts location parameter and returns weather information.
