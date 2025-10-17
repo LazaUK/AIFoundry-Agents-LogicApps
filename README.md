@@ -8,13 +8,13 @@ This repository demonstrates how to integrate **Azure Logic Apps** as custom too
 ***
 
 ## 📑 Table of Contents:
-- [Part 1: Configuring the Environment](#part-1-configuring-the-environment)
-- [Part 2: Configuring Logic App as a Tool using Function Calling](#part-2-configuring-logic-app-as-a-tool-using-function-calling)
-- [Part 3: Configuring Logic App as a Tool using OpenAPI Schema with SAS Token auth](#part-3-configuring-logic-app-as-a-tool-using-openapi-schema-with-sas-token-auth)
-- [Part 4: Configuring Logic App as a Tool using OpenAPI Schema with Managed Identity auth](#part-4-configuring-logic-app-as-a-tool-using-openapi-schema-with-managed-identity-auth)
+- [Configuring the Environment](#part-1-configuring-the-environment)
+- [Option A: Logic App as a Tool using Function Calling](#part-2-configuring-logic-app-as-a-tool-using-function-calling)
+- [Option B: Logic App as a Tool using OpenAPI Schema with SAS Token auth](#part-3-configuring-logic-app-as-a-tool-using-openapi-schema-with-sas-token-auth)
+- [Option C: Logic App as a Tool using OpenAPI Schema with Managed Identity auth](#part-4-configuring-logic-app-as-a-tool-using-openapi-schema-with-managed-identity-auth)
 - [Appendix: Sample Logic App](#appendix-sample-logic-app)
 
-## Part 1: Configuring the Environment
+## Configuring the Environment
 To run the provided Jupyter notebooks, you'll need to set up your Azure AI Foundry environment and install the required Python packages.
 
 ### 1.1 Prerequisites
@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 ***
 
-## Part 2: Configuring Logic App as a Tool using Function Calling
+## Option A: Logic App as a Tool using Function Calling
 This section details how to wrap a Logic App's functionality within a Python function and expose it to the AI agent as a tool.
 
 ### 2.1 The `AzureLogicAppTool` Class
@@ -147,7 +147,7 @@ Agent is ready! You can now interact with it.
 
 ***
 
-## Part 3: Configuring Logic App as a Tool using OpenAPI Schema with SAS Token auth
+## Option B: Logic App as a Tool using OpenAPI Schema with SAS Token auth
 This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundry agents using **OpenAPI schema**.
 
 ### 3.1 The `LogicAppsIntegration` Class
@@ -292,7 +292,7 @@ Assistant: The weather in London is currently cloudy. During the day, the high t
 > [!NOTE]
 > The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance while enabling full functionality of Logic Apps integration.
 
-## Part 4: Configuring Logic App as a Tool using OpenAPI Schema with Managed Identity auth
+## Option C: Logic App as a Tool using OpenAPI Schema with Managed Identity auth
 
 <<WORK IN PROGRESS>>
 
