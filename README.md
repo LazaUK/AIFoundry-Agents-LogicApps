@@ -10,7 +10,7 @@ This repository demonstrates how to integrate **Azure Logic Apps** as custom too
 ## 📑 Table of Contents:
 - [Part 1: Configuring the Environment](#part-1-configuring-the-environment)
 - [Part 2: Configuring Logic App as a Tool using Function Calling](#part-2-configuring-logic-app-as-a-tool-using-function-calling)
-- [Part 3: Configuring Logic App as a Tool using OpenAPI Schema with SAS Token auth](#part-3-configuring-logic-app-as-a-tool-using-openapi-schema)
+- [Part 3: Configuring Logic App as a Tool using OpenAPI Schema with SAS Token auth](#part-3-configuring-logic-app-as-a-tool-using-openapi-schema-with-sas-token-auth)
 - [Part 4: Configuring Logic App as a Tool using OpenAPI Schema with Managed Identity auth](#part-4-configuring-logic-app-as-a-tool-using-openapi-schema-with-managed-identity-auth)
 - [Appendix: Sample Logic App](#appendix-sample-logic-app)
 
