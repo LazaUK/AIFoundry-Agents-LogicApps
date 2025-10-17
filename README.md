@@ -148,7 +148,7 @@ Agent is ready! You can now interact with it.
 ***
 
 ## Option B: Logic App as a Tool using OpenAPI Schema with SAS Token auth
-This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundry agents using **OpenAPI schema**.
+This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundry agents using **OpenAPI schema**. Option B utilises _SAS (Shared Access Signature) token_ for authentication process.
 
 ### 3.1 The `LogicAppsIntegration` Class
 The `LogicAppsIntegration` class manages the integration between Logic Apps and the AI agent through OpenAPI spec. It handles:
