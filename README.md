@@ -290,7 +290,7 @@ Assistant: The weather in London is currently cloudy. During the day, the high t
 ```
 
 > [!NOTE]
-> The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance while enabling full functionality of Logic Apps integration.
+> The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance in comparison to Function Calling approach, while enabling full functionality of Logic Apps integration.
 
 ## Option C: Logic App as a Tool using OpenAPI Schema with Managed Identity auth
 
