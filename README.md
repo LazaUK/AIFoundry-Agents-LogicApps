@@ -33,7 +33,7 @@ Configure the following environment variables with your Azure credentials and pr
 | `AZURE_SUBSCRIPTION_ID`          | Your Azure subscription ID.                               |
 | `RESOURCE_GROUP_NAME`            | The name of the resource group containing your Logic App. |
 | `LOGIC_APP_NAME`                 | The name of the Azure Logic App resource                  |
-| `TRIGGER_NAME`                   | The name of the Logic App's HTTP trigger node             |
+| `TRIGGER_NAME`                   | The name of the HTTP trigger within your Logic App        |
 
 ### 1.4 Required Libraries
 Install the necessary Python packages using pip:
@@ -84,7 +84,7 @@ A helper function, `create_weather_forecast_function`, acts as a bridge between 
 * Accepting a `location` parameter from the agent.
 * Constructing the necessary JSON `payload`.
 * Calling the `invoke_logic_app` method from the `AzureLogicAppTool` class.
-* Formating the result into a standardized JSON response that the agent can easily parse.
+* Formating the result into a standardised JSON response that the agent can easily parse.
 
 ``` Python
 def create_weather_forecast_function(logic_app_tool: AzureLogicAppTool, logic_app_name: str) -> Callable[[str], str]:
@@ -148,7 +148,7 @@ Agent is ready! You can now interact with it.
 ***
 
 ## Option B: Logic App as a Tool using OpenAPI Schema with SAS Token auth
-This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundry agents using **OpenAPI schema**. Option B utilises _SAS (Shared Access Signature) token_ for authentication process.
+This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundry agents using **OpenAPI schema**. Option B utilises _a Shared Access Signature (SAS) token_ for authentication process.
 
 ### 3.1 The `LogicAppsIntegration` Class
 The `LogicAppsIntegration` class manages the integration between Logic Apps and the AI agent through OpenAPI spec. It handles:
@@ -290,13 +290,16 @@ Assistant: The weather in London is currently cloudy. During the day, the high t
 ```
 
 > [!NOTE]
-> The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance in comparison to Function Calling approach, while enabling full functionality of Logic Apps integration.
+> The _OpenAPI_ approach offers improved standardisation, automatic schema validation and reduced maintenance compared to the _Function Calling_ method, while still enabling the full functionality of Logic App integration
 
 ## Option C: Logic App as a Tool using OpenAPI Schema with Managed Identity auth
 
-<<WORK IN PROGRESS>>
+This section details the most secure and robust method for integrating a Logic App by using an **OpenAPI schema** with _Managed Identity_ authentication.
+
+> [!ATTENTION]
+> This approach enhances security by eliminating the need to manage secrets or SAS tokens. The Azure AI Foundry agent leverages the resource's managed identity to securely acquire an authentication token, which is then used to call the Logic App. _This is the recommended approach for production environments as it follows best practices for cloud security and credential management_.
 
 ## Appendix: Sample Logic App
-To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts location parameter and returns weather information.
+To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts a location parameter and returns weather information.
 
 ![Logic Apps sample](images/LogicApps_VisualDesign.png)
