@@ -20,7 +20,7 @@ To run the provided Jupyter notebooks, you'll need to set up your Azure AI Found
 ### 1.1 Prerequisites
 You need an **Azure AI Foundry** project with a model deployment that supports function calling (e.g., GPT-4.1-mini). You also need a pre-existing Azure Logic App with an **HTTP Trigger** configured to accept incoming requests.
 
-### 1.2 Authentication
+### 1.2 Initial Setup Authentication
 The demo uses **Microsoft Entra ID** authentication via `DefaultAzureCredential` from the `azure.identity` package. To enable this, ensure you are authenticated through the Azure CLI (`az login`), by setting up environment variables for a service principal, or by using a managed identity in an Azure environment.
 
 ### 1.3 Environment Variables
@@ -298,6 +298,45 @@ This section details the most secure and robust method for integrating a Logic A
 
 > [!IMPORTANT]
 > This approach enhances security by eliminating the need to manage secrets or SAS tokens. The Azure AI Foundry agent leverages the resource's managed identity to securely acquire an authentication token, which is then used to call the Logic App. _This is the recommended approach for production environments as it follows best practices for cloud security and credential management_.
+
+### 4.1 Code Changes
+The notebook for Option C is nearly identical to the one for Option B. The critical changes are within the **LogicAppsIntegration** class to enable managed identity authentication:
+
+- **OpenAPI Specification**: The spec is modified to use an Authorization header for the managed identity's OAuth token.
+
+``` JSON
+"components": {
+    "securitySchemes": {
+        "managedIdentity": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization"
+        }
+    }
+}
+```
+
+- **URL Parameter Filtering**: The code filters out SAS token parameters (e.g., sig, sv) from the Logic App's callback URL, as they are replaced by the managed identity token.
+
+``` Python
+parsed = urlparse(callback_url)
+query_params = parse_qs(parsed.query)
+
+parameters = []
+sas_params_to_exclude = {'sv', 'sig', 'sr', 'se', 'sp'}
+
+for param_name, param_values in query_params.items():
+    if param_values and param_name not in sas_params_to_exclude:
+        parameters.append({
+            "name": param_name,
+            "in": "query",
+            "required": True,
+            "schema": {
+                "type": "string",
+                "default": param_values[0]
+            }
+        })
+```
 
 ## Appendix: Sample Logic App
 To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts a location parameter and returns weather information.
