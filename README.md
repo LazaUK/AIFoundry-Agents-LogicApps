@@ -296,7 +296,7 @@ Assistant: The weather in London is currently cloudy. During the day, the high t
 
 This section details the most secure and robust method for integrating a Logic App by using an **OpenAPI schema** with _Managed Identity_ authentication.
 
-> [!WARNING]
+> [!IMPORTANT]
 > This approach enhances security by eliminating the need to manage secrets or SAS tokens. The Azure AI Foundry agent leverages the resource's managed identity to securely acquire an authentication token, which is then used to call the Logic App. _This is the recommended approach for production environments as it follows best practices for cloud security and credential management_.
 
 ## Appendix: Sample Logic App
