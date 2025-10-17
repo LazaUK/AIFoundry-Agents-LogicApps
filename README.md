@@ -10,8 +10,8 @@ This repository demonstrates how to integrate **Azure Logic Apps** as custom too
 ## 📑 Table of Contents:
 - [Part 1: Configuring the Environment](#part-1-configuring-the-environment)
 - [Part 2: Configuring Logic App as a Tool using Function Calling](#part-2-configuring-logic-app-as-a-tool-using-function-calling)
-- [Part 3: Configuring Logic App as a Tool using OpenAPI Schema](#part-3-configuring-logic-app-as-a-tool-using-openapi-schema)
-- [Part 4: Configuring Logic App as a Tool using OpenAPI Schema with Managed Identity auth]()
+- [Part 3: Configuring Logic App as a Tool using OpenAPI Schema with SAS Token auth](#part-3-configuring-logic-app-as-a-tool-using-openapi-schema)
+- [Part 4: Configuring Logic App as a Tool using OpenAPI Schema with Managed Identity auth](#part-4-configuring-logic-app-as-a-tool-using-openapi-schema-with-managed-identity-auth)
 - [Appendix: Sample Logic App](#appendix-sample-logic-app)
 
 ## Part 1: Configuring the Environment
@@ -147,7 +147,7 @@ Agent is ready! You can now interact with it.
 
 ***
 
-## Part 3: Configuring Logic App as a Tool using OpenAPI Schema
+## Part 3: Configuring Logic App as a Tool using OpenAPI Schema with SAS Token auth
 This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundry agents using **OpenAPI schema**.
 
 ### 3.1 The `LogicAppsIntegration` Class
@@ -293,7 +293,8 @@ Assistant: The weather in London is currently cloudy. During the day, the high t
 > The OpenAPI approach provides better standardisation, automatic validation and reduced maintenance while enabling full functionality of Logic Apps integration.
 
 ## Part 4: Configuring Logic App as a Tool using OpenAPI Schema with Managed Identity auth
-<TBU>
+
+<<WORK IN PROGRESS>>
 
 ## Appendix: Sample Logic App
 To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts location parameter and returns weather information.
