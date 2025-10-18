@@ -305,38 +305,43 @@ The notebook for Option C is nearly identical to the one for Option B. The criti
 - **OpenAPI Specification**: The spec is modified to use an Authorization header for the managed identity's OAuth token.
 
 ``` JSON
-"components": {
-    "securitySchemes": {
-        "managedIdentity": {
-            "type": "apiKey",
-            "in": "header",
-            "name": "Authorization"
-        }
-    }
-}
+            "components": {
+                "securitySchemes": {
+                    "managedIdentity": {
+                        "type": "apiKey",
+                        "in": "header",
+                        "name": "Authorization"
+                    }
+                }
+            }
 ```
 
 - **URL Parameter Filtering**: The code filters out SAS token parameters (e.g., sig, sv) from the Logic App's callback URL, as they are replaced by the managed identity token.
 
 ``` Python
-parsed = urlparse(callback_url)
-query_params = parse_qs(parsed.query)
+        parsed = urlparse(callback_url)
+        query_params = parse_qs(parsed.query)
+        
+        parameters = []
+        sas_params_to_exclude = {'sv', 'sig', 'sr', 'se', 'sp'}
 
-parameters = []
-sas_params_to_exclude = {'sv', 'sig', 'sr', 'se', 'sp'}
-
-for param_name, param_values in query_params.items():
-    if param_values and param_name not in sas_params_to_exclude:
-        parameters.append({
-            "name": param_name,
-            "in": "query",
-            "required": True,
-            "schema": {
-                "type": "string",
-                "default": param_values[0]
-            }
-        })
+        for param_name, param_values in query_params.items():
+            if param_values and param_name not in sas_params_to_exclude:
+                parameters.append({
+                    "name": param_name,
+                    "in": "query",
+                    "required": True,
+                    "schema": {
+                        "type": "string",
+                        "default": param_values[0]
+                    }
+                })
 ```
+
+### 4.2 Managed Identity for the Azure AI Foundry resource
+In the Azure Portal, navigate to your Azure AI Foundry resource, select the **Identity** blade and enable the system-assigned identity. Note down the _Object (principal) ID_, as you will need it in a later step.
+
+
 
 ## Appendix: Sample Logic App
 To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts a location parameter and returns weather information.
