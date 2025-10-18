@@ -341,7 +341,18 @@ The notebook for Option C is nearly identical to the one for Option B. The criti
 ### 4.2 Managed Identity for the Azure AI Foundry resource
 In the Azure Portal, navigate to your Azure AI Foundry resource, select the **Identity** blade and enable the system-assigned identity. Note down the _Object (principal) ID_, as you will need it in a later step.
 
+### 4.3 Secure Logic App HTTP Trigger
+Next, configure your Logic App's HTTP trigger to require a valid OAuth token from the agent.
 
+- In the _Logic App Code view_, find your HTTP trigger definition and add the following line to [process the Authorization header](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-securing-a-logic-app?tabs=azure-portal#include-authorization-header-in-request-or-http-webhook-trigger-outputs):
+``` JSON
+"operationOptions": "IncludeAuthorizationHeadersInOutputs"
+```
+
+- Switch to the _Logic App Designer_ view, open the trigger's Settings and add the following Trigger Condition. This [enforces the use of a Bearer token and disables SAS authentication](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-securing-a-logic-app?tabs=azure-portal#enable-oauth-20-with-microsoft-entra-id-as-the-only-option-to-call-a-request-endpoint-consumption-only):
+``` JSON
+@startsWith(triggerOutputs()?['headers']?['Authorization'], 'Bearer')
+```
 
 ## Appendix: Sample Logic App
 To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts a location parameter and returns weather information.
