@@ -372,7 +372,7 @@ Value: Use the Object (principal) ID you noted in step 4.2.
 ```
 
 > [!NOTE]
-> Big shout out to _Robbe Van den Daele_ from _Hybrid Brothers_ on the original post about the use of managed identities in Logic App HTTP triggers: https://hybridbrothers.com/posts/using-managed-identities-in-logic-app-http-triggers/.
+> Big shout out to _Robbe Van den Daele_ from @HybridBrothers on the original post about the use of managed identities in Logic App HTTP triggers: https://hybridbrothers.com/posts/using-managed-identities-in-logic-app-http-triggers/.
 
 ## Appendix: Sample Logic App
 To demonstrate the integration, you'll need a Logic App with an HTTP trigger that accepts a location parameter and returns weather information.
