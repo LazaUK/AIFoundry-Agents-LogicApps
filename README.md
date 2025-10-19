@@ -349,9 +349,26 @@ Next, configure your Logic App's HTTP trigger to require a valid OAuth token fro
 "operationOptions": "IncludeAuthorizationHeadersInOutputs"
 ```
 
-- Switch to the _Logic App Designer_ view, open the trigger's Settings and add the following Trigger Condition. This [enforces the use of a Bearer token and disables SAS authentication](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-securing-a-logic-app?tabs=azure-portal#enable-oauth-20-with-microsoft-entra-id-as-the-only-option-to-call-a-request-endpoint-consumption-only):
+- Switch to the _Logic App Designer_ view, open the trigger's Settings and add the following Trigger Condition. This [enforces the use of a Bearer token](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-securing-a-logic-app?tabs=azure-portal#enable-oauth-20-with-microsoft-entra-id-as-the-only-option-to-call-a-request-endpoint-consumption-only):
 ``` JSON
 @startsWith(triggerOutputs()?['headers']?['Authorization'], 'Bearer')
+```
+
+### 4.4 Authorisation Policy
+Create a policy to grant access exclusively to your AI Foundry's **Managed Identity**.
+
+In your Logic App, navigate to the _Authorization_ blade and click Add policy. Configure the policy by adding the following three claims to validate the incoming token:
+- Issuer Claim (iss): Verifies the token is from your Microsoft Entra ID tenant.
+``` JSON
+Value: https://sts.windows.net/<YOUR_TENANT_ID>/
+```
+- Audience Claim (aud): Verifies the token is intended for Azure management APIs.
+``` JSON
+Value: https://management.azure.com/
+```
+- Object ID Claim (oid): Verifies the token belongs to your AI Project's identity.
+``` JSON
+Value: Use the Object (principal) ID you noted in step 4.2.
 ```
 
 ## Appendix: Sample Logic App
