@@ -359,15 +359,15 @@ Create a policy to grant access exclusively to your AI Foundry's **Managed Ident
 
 In your Logic App, navigate to the _Authorization_ blade and click Add policy. Configure the policy by adding the following three claims to validate the incoming token:
 - Issuer Claim (iss): Verifies the token is from your Microsoft Entra ID tenant.
-``` JSON
+```
 Value: https://sts.windows.net/<YOUR_TENANT_ID>/
 ```
 - Audience Claim (aud): Verifies the token is intended for Azure management APIs.
-``` JSON
+```
 Value: https://management.azure.com/
 ```
 - Object ID Claim (oid): Verifies the token belongs to your AI Project's identity.
-``` JSON
+```
 Value: Use the Object (principal) ID you noted in step 4.2.
 ```
 
