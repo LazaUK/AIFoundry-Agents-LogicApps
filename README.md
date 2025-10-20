@@ -371,6 +371,8 @@ Value: https://management.azure.com/
 Value: Use the Object (principal) ID you noted in step 4.2.
 ```
 
+![Logic_Apps_authorisation](images/LogicApp_AuthorisationPolicy.png)
+
 > [!NOTE]
 > Big shout out to _Robbe Van den Daele_ from @HybridBrothers on the original post about the use of managed identities in Logic App HTTP triggers: https://hybridbrothers.com/posts/using-managed-identities-in-logic-app-http-triggers/.
 
