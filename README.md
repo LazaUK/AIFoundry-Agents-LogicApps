@@ -49,8 +49,8 @@ This section details how to wrap a Logic App's functionality within a Python fun
 
 ### 2.1 The `AzureLogicAppTool` Class
 A dedicated class, `AzureLogicAppTool`, is used to manage the Logic App. It performs two key tasks:
-* `register_logic_app`: This method retrieves the unique callback URL for the Logic App's HTTP-Trigger. It uses the `LogicManagementClient` to securely obtain this URL, which is required to invoke the Logic App.
-* `invoke_logic_app`: This method sends a `POST` request to the registered callback URL with a JSON payload, effectively triggering the Logic App workflow.
+- `register_logic_app`: This method retrieves the unique callback URL for the Logic App's HTTP-Trigger. It uses the `LogicManagementClient` to securely obtain this URL, which is required to invoke the Logic App.
+- `invoke_logic_app`: This method sends a `POST` request to the registered callback URL with a JSON payload, effectively triggering the Logic App workflow.
 
 ``` Python
 class AzureLogicAppTool:
@@ -81,10 +81,10 @@ class AzureLogicAppTool:
 
 ### 2.2 Python Wrapper Function
 A helper function, `create_weather_forecast_function`, acts as a bridge between the AI agent and the `AzureLogicAppTool`:
-* Accepting a `location` parameter from the agent.
-* Constructing the necessary JSON `payload`.
-* Calling the `invoke_logic_app` method from the `AzureLogicAppTool` class.
-* Formating the result into a standardised JSON response that the agent can easily parse.
+- Accepting a `location` parameter from the agent.
+- Constructing the necessary JSON `payload`.
+- Calling the `invoke_logic_app` method from the `AzureLogicAppTool` class.
+- Formating the result into a standardised JSON response that the agent can easily parse.
 
 ``` Python
 def create_weather_forecast_function(logic_app_tool: AzureLogicAppTool, logic_app_name: str) -> Callable[[str], str]:
@@ -130,9 +130,9 @@ def create_weather_forecast_function(logic_app_tool: AzureLogicAppTool, logic_ap
 
 ### 2.3 Agent Configuration
 With the Python wrapper function defined, you can now configure the AI agent:
-1.  **Define Agent Tools**: The `get_weather_forecast` function is added to a `FunctionTool` instance. A separate `get_current_datetime` function is also included to demonstrate the agent's ability to use multiple tools.
-2.  **Enable Function Calling**: The `agents_client.enable_auto_function_calls()` method is used to instruct the agent's model to automatically call the defined tools when appropriate.
-3.  **Create the Agent**: An agent is created with a clear instruction set that guides it to use the `get_weather_forecast` tool when asked about the weather.
+- **Define Agent Tools**: The `get_weather_forecast` function is added to a `FunctionTool` instance. A separate `get_current_datetime` function is also included to demonstrate the agent's ability to use multiple tools.
+- **Enable Function Calling**: The `agents_client.enable_auto_function_calls()` method is used to instruct the agent's model to automatically call the defined tools when appropriate.
+- **Create the Agent**: An agent is created with a clear instruction set that guides it to use the `get_weather_forecast` tool when asked about the weather.
 
 The output of AI agent's setup may look like this:
 
@@ -152,10 +152,9 @@ This section demonstrates how to integrate Azure Logic Apps with Azure AI Foundr
 
 ### 3.1 The `LogicAppsIntegration` Class
 The `LogicAppsIntegration` class manages the integration between Logic Apps and the AI agent through OpenAPI spec. It handles:
-
-* Callback URL Retrieval
-* OpenAPI Spec Generation
-* Tool Creation
+- **Callback URL** Retrieval
+- **OpenAPI Spec** Generation
+- **Agentic Tool** Creation
 
 ``` Python
 class LogicAppsIntegration:
@@ -187,10 +186,9 @@ class LogicAppsIntegration:
 
 ### 3.2 OpenAPI Specification Generation
 The class automatically generates a minimal OpenAPI 3.0 spec that includes:
-
-* Server Configuration
-* Authentication
-* JSON payload structure
+- **Logic App Backend** Configuration
+- **SAS Token** Authentication
+- **JSON payload** structure
 
 ``` Python
 openapi_spec = {
