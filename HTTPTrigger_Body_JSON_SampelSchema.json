@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "Location": {
+      "description": "The location of place to get weather for",
+      "type": "string"
+    }
+  }
+}
